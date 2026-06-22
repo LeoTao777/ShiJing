@@ -8,4 +8,15 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <!-- 测试项目位于 Test/ 子目录下，需从主项目的默认编译项中排除，
+       否则默认的 **\*.cs glob 会把测试源码一并纳入主项目编译。 -->
+  <ItemGroup>
+    <Compile Remove="Test\**" />
+    <None Remove="Test\**" />
+    <EmbeddedResource Remove="Test\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UnitTest\" />
+  </ItemGroup>
+
 </Project>
