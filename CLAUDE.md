@@ -16,6 +16,7 @@
 
 - **运行时 / 语言**：.NET 10 (`net10.0-windows`)，C#（启用 `Nullable` 与 `ImplicitUsings`）
 - **UI 框架**：WPF（`UseWPF=true`），XAML + 代码后置（code-behind）
+- **单元测试框架**:`xUnit + Moq`
 - **解决方案格式**：`.slnx`（新版 XML 解决方案格式）
 - **输出类型**：`WinExe`（Windows 可执行程序）
 
