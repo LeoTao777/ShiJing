@@ -1,0 +1,16 @@
+<Project>
+
+  <!--
+    将编译产物（bin/obj）统一输出到 .artifact 目录，集中管理构建产物。
+    - BaseIntermediateOutputPath：obj 中间产物根目录
+    - BaseOutputPath：bin 输出根目录
+    路径按项目名细分，避免多项目（如主工程与单元测试工程）共享同一目录时
+    互相覆盖 NuGet 还原产物（project.assets.json 等）。
+    每次构建会清理上一次的结果，仅保留最新一次构建产物。
+  -->
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory).artifact\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(MSBuildThisFileDirectory).artifact\bin\$(MSBuildProjectName)\</BaseOutputPath>
+  </PropertyGroup>
+
+</Project>
