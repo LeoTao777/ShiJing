@@ -1,0 +1,36 @@
+<Project>
+
+  <!--
+    仅保留最新一次构建产物：
+    1. CleanArtifactBinBeforeBuild：每次构建前清空 bin 输出目录（含上次遗留的 WPF
+       临时目录 *_wpftmp），确保 .artifact 内不累积旧产物。
+    2. RemoveWpfTempProjectDir：WPF 在 Compile 阶段会生成一个临时的 *_wpftmp 子项目，
+       并在 $(BaseOutputPath) 的同级目录下创建其输出目录（最终为空）。官方的
+       CleanupTemporaryTargetAssembly 仅删除临时程序集文件，不删除该空目录。
+       AfterBuild 在 CoreBuild（含 Compile）之后执行，此时临时目录已生成，在此
+       清理可保证本次构建结束即干净。注意：搜索 $(BaseOutputPath) 的父目录，
+       因为 *_wpftmp 与本项目输出目录是同级关系。
+  -->
+  <Target Name="CleanArtifactBinBeforeBuild" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <_ArtifactBinFiles Include="$(BaseOutputPath)**\*" />
+    </ItemGroup>
+    <Delete Files="@(_ArtifactBinFiles)" />
+    <RemoveDir Directories="$(BaseOutputPath)" />
+    <Message Importance="high" Text="已清空上次构建产物：$(BaseOutputPath)" />
+  </Target>
+
+  <Target Name="RemoveWpfTempProjectDir" AfterTargets="AfterBuild">
+    <PropertyGroup>
+      <!-- $(BaseOutputPath) 形如 .artifact\bin\ShiJing\（含项目名），其上两级 .artifact\bin\ 才是
+           所有项目输出的公共根目录，WPF 临时项目 *_wpftmp 与本项目输出目录同级，位于其下。 -->
+      <_BinRootPath>$([System.IO.Path]::GetDirectoryName('$([System.IO.Path]::GetDirectoryName('$(BaseOutputPath)'))'))\</_BinRootPath>
+    </PropertyGroup>
+    <ItemGroup Condition="Exists('$(_BinRootPath)')">
+      <_WpfTempDirs Include="$([System.IO.Directory]::GetDirectories('$(_BinRootPath)', '*_wpftmp', System.IO.SearchOption.TopDirectoryOnly))" />
+    </ItemGroup>
+    <RemoveDir Directories="@(_WpfTempDirs)" Condition="'@(_WpfTempDirs)' != ''" />
+    <Message Importance="high" Text="已清理 WPF 临时目录：@(_WpfTempDirs)" Condition="'@(_WpfTempDirs)' != ''" />
+  </Target>
+
+</Project>
