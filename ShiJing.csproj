@@ -16,6 +16,12 @@
     <EmbeddedResource Remove="UnitTest\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="nul" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.3.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
 </Project>

@@ -5,12 +5,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ShiJing.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:sub="clr-namespace:ShiJing.Views.SubPages.TopModules"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
+    Title=""
     Width="800"
     Height="450"
     Style="{StaticResource MaterialDesignWindow}"
     mc:Ignorable="d">
+
+    <Window.Background>
+        <RadialGradientBrush Center="0.5, 0.3" GradientOrigin="0.5, 0.3" RadiusX="0.7" RadiusY="0.7">
+            <GradientStop Offset="0.0" Color="#FFF" />
+            <GradientStop Offset="1.0" Color="#EBF1FF" />
+        </RadialGradientBrush>
+    </Window.Background>
+
     <Grid>
         <materialDesign:Card>
             <TabControl
@@ -21,27 +30,14 @@
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon
-                                Width="24"
-                                Height="24"
+                                Width="26"
+                                Height="26"
                                 HorizontalAlignment="Center"
-                                Kind="Folder" />
-                            <TextBlock HorizontalAlignment="Center" Text="All Files" />
+                                Kind="HomeFlood" />
+                            <TextBlock HorizontalAlignment="Center" Text="观镜" />
                         </StackPanel>
                     </TabItem.Header>
-                    <StackPanel Margin="16">
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="All files" />
-                        <TextBlock>
-                            <Run Text="tab 1 content. Default look and behaviors." />
-                            <LineBreak />
-                            <LineBreak />
-                            <Run FontStyle="Italic">
-                                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
-                            </Run>
-                        </TextBlock>
-                    </StackPanel>
+                    <sub:HomePage />
                 </TabItem>
                 <TabItem>
                     <TabItem.Header>
@@ -50,24 +46,11 @@
                                 Width="24"
                                 Height="24"
                                 HorizontalAlignment="Center"
-                                Kind="ClockOutline" />
-                            <TextBlock HorizontalAlignment="Center" Text="Recent" />
+                                Kind="Video4kBox" />
+                            <TextBlock HorizontalAlignment="Center" Text="琢影" />
                         </StackPanel>
                     </TabItem.Header>
-                    <StackPanel Margin="16">
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="Recent" />
-                        <TextBlock>
-                            <Run Text="tab 2 content. Default look and behaviors." />
-                            <LineBreak />
-                            <LineBreak />
-                            <Run FontStyle="Italic">
-                                Praesent sed dui arcu. Vivamus porta auctor sagittis
-                            </Run>
-                        </TextBlock>
-                    </StackPanel>
+                    <sub:Video />
                 </TabItem>
                 <TabItem>
                     <TabItem.Header>
@@ -76,21 +59,11 @@
                                 Width="24"
                                 Height="24"
                                 HorizontalAlignment="Center"
-                                Kind="Images" />
-                            <TextBlock HorizontalAlignment="Center" Text="Photos" />
+                                Kind="CogOutline" />
+                            <TextBlock HorizontalAlignment="Center" Text="调序" />
                         </StackPanel>
                     </TabItem.Header>
-                    <StackPanel Margin="16">
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="Photos" />
-                        <TextBlock>
-                            <Run Text="tab 3 content. Default look and behaviors." />
-                            <LineBreak />
-                            <LineBreak />
-                        </TextBlock>
-                    </StackPanel>
+                    <sub:Settings />
                 </TabItem>
                 <TabItem>
                     <TabItem.Header>
@@ -99,21 +72,11 @@
                                 Width="24"
                                 Height="24"
                                 HorizontalAlignment="Center"
-                                Kind="MusicBoxMultiple" />
-                            <TextBlock HorizontalAlignment="Center" Text="Sounds" />
+                                Kind="InformationVariant" />
+                            <TextBlock HorizontalAlignment="Center" Text="溯镜" />
                         </StackPanel>
                     </TabItem.Header>
-                    <StackPanel Margin="16">
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="Sounds" />
-                        <TextBlock>
-                            <Run Text="tab 4 content. Default look and behaviors." />
-                            <LineBreak />
-                            <LineBreak />
-                        </TextBlock>
-                    </StackPanel>
+                    <sub:About />
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
