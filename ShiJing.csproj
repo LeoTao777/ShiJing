@@ -19,9 +19,9 @@
     <None Remove="nul" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="5.3.2" />
+    <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.2.1" />
   </ItemGroup>
 </Project>
