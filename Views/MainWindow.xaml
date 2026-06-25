@@ -20,16 +20,10 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Window.Background>
-        <RadialGradientBrush Center="0.5, 0.3" GradientOrigin="0.5, 0.3" RadiusX="0.7" RadiusY="0.7">
-            <GradientStop Offset="0.0" Color="#FFF" />
-            <GradientStop Offset="1.0" Color="#EBF1FF" />
-        </RadialGradientBrush>
-    </Window.Background>
-
     <ui:NavigationView
         x:Name="NavigationView_Root"
         IsPaneOpen="False"
+        IsTitleBarAutoPaddingEnabled="False"
         PaneDisplayMode="Auto"
         SelectionChanged="NavigationView_SelectionChanged">
         <FrameworkElement.Resources>
