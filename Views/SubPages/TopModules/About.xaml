@@ -1,4 +1,4 @@
-﻿<ui:Page
+﻿<UserControl
     x:Class="ShiJing.Views.SubPages.TopModules.About"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,4 +18,4 @@
             Current Page: Home
         </TextBlock>
     </Grid>
-</ui:Page>
+</UserControl>

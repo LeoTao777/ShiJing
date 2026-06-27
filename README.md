@@ -1,5 +1,19 @@
 # ShiJing
 Shijing is a minimalist lightweight local video management desktop application. It supports one-click video frame snapshot and local screenshot saving. All captured screenshots are automatically associated with their source videos.
+
+## Core Feature
+- Local music playback support
+
+## Project Arch
+- Tech Stack: C#, Prism, ffmpeg, WPF
+
+## Installation
+
+## License
+
+## Plan
+- [ ] using Prsim arch to refactor navigation
+
 ## Star History
 
 <a href="https://www.star-history.com/?repos=ShiJing%2FShiJing&type=date&legend=top-left">

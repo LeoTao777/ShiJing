@@ -1,6 +1,5 @@
-﻿using iNKORE.UI.WPF.Modern.Controls;
-using System.Windows;
-using Page = iNKORE.UI.WPF.Modern.Controls.Page;
+﻿using System.Windows;
+using ShiJing.ViewModels;
 
 namespace ShiJing.Views
 {
@@ -9,51 +8,22 @@ namespace ShiJing.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly NavigationRootViewModel _viewModel;
+
+        public MainWindow(NavigationRootViewModel viewModel)
         {
             InitializeComponent();
+            _viewModel = viewModel;
+            DataContext = _viewModel;
+
+            Loaded += MainWindow_Loaded;
         }
 
-        public SubPages.TopModules.HomePage HomePage = new SubPages.TopModules.HomePage();
-        public SubPages.TopModules.Video Video = new SubPages.TopModules.Video();
-        public SubPages.TopModules.Settings Settings = new SubPages.TopModules.Settings();
-        public SubPages.TopModules.About About = new SubPages.TopModules.About();
-
-        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            var item = sender.SelectedItem;
-            Page? page = null;
-
-            if (item == NavigationViewItem_Home)
-            {
-                page = HomePage;
-            }
-            else if (item == NavigationViewItem_Video)
-            {
-                page = Video;
-            }
-            else if (item == NavigationViewItem_Settings)
-            {
-                page = Settings;
-            }
-            else if (item == NavigationViewItem_About)
-            {
-                page = About;
-            }
-
-            if (page != null)
-            {
-                NavigationView_Root.Header = page.Title;
-                Frame_Main.Navigate(page);
-            }
+            // 启动默认选中「首页」，触发 Prism 区域导航
+            if (_viewModel.SelectedItem == null && _viewModel.MenuItems.Count > 0)
+                _viewModel.SelectedItem = _viewModel.MenuItems[0];
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            NavigationView_Root.SelectedItem = NavigationViewItem_Home;
-        }
-
-
-
     }
 }

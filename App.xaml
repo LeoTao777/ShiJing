@@ -1,11 +1,11 @@
-﻿<Application
+﻿<prism:PrismApplication
     x:Class="ShiJing.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ShiJing"
-    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
-    StartupUri="Views/MainWindow.xaml">
-    <Application.Resources>
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
+    <prism:PrismApplication.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemeResources />
@@ -16,5 +16,5 @@
             <CornerRadius x:Key="NavigationViewContentGridCornerRadius">8,0,0,0</CornerRadius>
             <Thickness x:Key="NavigationViewHeaderMargin">56,34,0,0</Thickness>
         </ResourceDictionary>
-    </Application.Resources>
-</Application>
+    </prism:PrismApplication.Resources>
+</prism:PrismApplication>
