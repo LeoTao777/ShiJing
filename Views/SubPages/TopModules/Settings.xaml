@@ -2,6 +2,7 @@
     x:Class="ShiJing.Views.SubPages.TopModules.Settings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:ShiJing.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:local="clr-namespace:ShiJing.Views.SubPages.TopModules"
@@ -38,6 +39,21 @@
                         <ui:FontIcon Glyph="&#xE799;" />
                     </ui:SettingsCard.HeaderIcon>
                     <ComboBox ItemsSource="{Binding LogLevelValues}" SelectedItem="{Binding settingsModel.Logger.MinLevel, Mode=TwoWay}" />
+                </ui:SettingsCard>
+
+                <ui:SettingsCard
+                    x:Name="LoggerDirectoryCard"
+                    Description="日志文件的保存位置"
+                    Header="日志保存目录"
+                    IsEnabled="{Binding settingsModel.Logger.IsEnabled}">
+                    <ui:SettingsCard.HeaderIcon>
+                        <ui:FontIcon Glyph="&#xE8B7;" />
+                    </ui:SettingsCard.HeaderIcon>
+                    <controls:FolderPicker
+                        MinWidth="320"
+                        DialogTitle="选择日志保存目录"
+                        IsPathEnabled="{Binding settingsModel.Logger.IsEnabled}"
+                        SelectedPath="{Binding settingsModel.Logger.LogDirectory, Mode=TwoWay}" />
                 </ui:SettingsCard>
             </ikw:SimpleStackPanel>
 

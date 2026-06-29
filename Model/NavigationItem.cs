@@ -1,5 +1,6 @@
 ﻿using iNKORE.UI.WPF.Modern.Common.IconKeys;
-
+using CommunityToolkit.Mvvm;
+using CommunityToolkit.Mvvm.ComponentModel;
 namespace ShiJing.Model
 {
     /// <summary>导航项归属区域：决定挂主菜单还是页脚菜单</summary>
@@ -12,7 +13,7 @@ namespace ShiJing.Model
         Footer
     }
 
-    public class NavigationItem
+    public class NavigationItem : ObservableObject
     {
         /// <summary>导航 Key，对应 Prism 注册的页面名（如 "HomePage"）</summary>
         public string PageKey { get; set; } = string.Empty;

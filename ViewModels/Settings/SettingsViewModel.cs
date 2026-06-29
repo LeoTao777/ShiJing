@@ -26,7 +26,9 @@ namespace ShiJing.ViewModels.Settings
 
         private void Logger_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(LoggerSettingModel.MinLevel))
+            // 日志等级或保存目录变更 → 立即应用到全局 LoggerService（重建输出目标）
+            if (e.PropertyName == nameof(LoggerSettingModel.MinLevel) ||
+                e.PropertyName == nameof(LoggerSettingModel.LogDirectory))
             {
                 settingsModel.Logger.Apply();
             }
