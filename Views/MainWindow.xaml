@@ -7,12 +7,16 @@
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:local="clr-namespace:ShiJing.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:ShiJing.Model"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:sub="clr-namespace:ShiJing.Views.SubPages.TopModules"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    xmlns:vm="clr-namespace:ShiJing.ViewModels"
     Title="拾镜"
     Width="1138"
     Height="750"
+    d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
+                                     IsDesignTimeCreatable=False}"
     ui:ThemeManager.IsThemeAware="True"
     ui:TitleBar.ExtendViewIntoTitleBar="True"
     ui:TitleBar.Height="36"
@@ -21,35 +25,41 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <ui:NavigationView
-        x:Name="NavigationView_Root"
-        FooterMenuItemsSource="{Binding FooterItems}"
-        Header="{Binding Header}"
-        IsPaneOpen="False"
-        IsTitleBarAutoPaddingEnabled="False"
-        MenuItemsSource="{Binding MenuItems}"
-        PaneDisplayMode="Auto"
-        SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-        <FrameworkElement.Resources>
-            <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.NavigationViewContentBackgroundKey}" Color="Transparent" />
-            <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.ExpanderHeaderBorderBrushKey}" Color="Transparent" />
-            <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
-        </FrameworkElement.Resources>
-
-        <ui:NavigationView.MenuItemTemplate>
-            <DataTemplate>
-                <ui:NavigationViewItem
-                    Content="{Binding Title}"
-                    SelectsOnInvoked="True">
-                    <ui:NavigationViewItem.Icon>
-                        <ui:FontIcon Icon="{Binding Icon}" />
-                    </ui:NavigationViewItem.Icon>
-                </ui:NavigationViewItem>
-            </DataTemplate>
-        </ui:NavigationView.MenuItemTemplate>
-
-        <ContentControl prism:RegionManager.RegionName="MainRegion" />
-
-    </ui:NavigationView>
+    <Grid>
+        <ui:NavigationView
+            x:Name="nvSample5"
+            BackRequested="Main_BackRequested"
+            FooterMenuItemsSource="{Binding FooterItems}"
+            IsBackButtonVisible="Visible"
+            IsBackEnabled="False"
+            IsPaneOpen="False"
+            IsTabStop="False"
+            MenuItemsSource="{Binding MenuItems}"
+            OpenPaneLength="150"
+            PaneDisplayMode="Auto"
+            SelectionChanged="Main_SelectionChanged">
+            <FrameworkElement.Resources>
+                <!--  窗格背景：展开与收起分别设置  -->
+                <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.NavigationViewDefaultPaneBackgroundKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.NavigationViewExpandedPaneBackgroundKey}" Color="Transparent" />
+                <!--  内容区背景（已有）  -->
+                <!--<SolidColorBrush x:Key="{x:Static ui:ThemeKeys.NavigationViewContentBackgroundKey}" Color="Transparent" />-->
+                <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.ExpanderHeaderBorderBrushKey}" Color="Transparent" />
+                <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
+            </FrameworkElement.Resources>
+            <ui:NavigationView.MenuItemTemplate>
+                <DataTemplate DataType="{x:Type model:NavigationItem}">
+                    <ui:NavigationViewItem Content="{Binding Title}">
+                        <ui:NavigationViewItem.Icon>
+                            <ui:FontIcon Icon="{Binding Icon}" />
+                        </ui:NavigationViewItem.Icon>
+                    </ui:NavigationViewItem>
+                </DataTemplate>
+            </ui:NavigationView.MenuItemTemplate>
+            <ui:NavigationView.Content>
+                <ContentControl x:Name="contentHost" />
+            </ui:NavigationView.Content>
+        </ui:NavigationView>
+    </Grid>
 
 </Window>
