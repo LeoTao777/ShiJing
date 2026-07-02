@@ -22,10 +22,24 @@
             IsTabStop="False"
             VerticalScrollBarVisibility="Auto">
             <ikw:SimpleStackPanel Spacing="4">
-                <TextBlock Margin="0,16,10,5" Text="日志设置" />
+                <Grid Margin="0,16,10,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="日志设置" />
+                    <Button
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Command="{Binding SaveCommand}"
+                        Content="保存" />
+                </Grid>
                 <ui:SettingsCard Header="是否开启日志记录">
                     <ui:SettingsCard.HeaderIcon>
-                        <ui:FontIcon Glyph="&#xE799;" />
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.ClipboardText_32_Filled}" />
                     </ui:SettingsCard.HeaderIcon>
                     <ui:ToggleSwitch IsOn="{Binding settingsModel.Logger.IsEnabled, Mode=TwoWay}" />
                 </ui:SettingsCard>
@@ -36,7 +50,7 @@
                     Header="日志输出等级"
                     IsEnabled="{Binding settingsModel.Logger.IsEnabled}">
                     <ui:SettingsCard.HeaderIcon>
-                        <ui:FontIcon Glyph="&#xE799;" />
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.AppsList_20_Regular}" />
                     </ui:SettingsCard.HeaderIcon>
                     <ComboBox ItemsSource="{Binding LogLevelValues}" SelectedItem="{Binding settingsModel.Logger.MinLevel, Mode=TwoWay}" />
                 </ui:SettingsCard>
@@ -47,7 +61,7 @@
                     Header="日志保存目录"
                     IsEnabled="{Binding settingsModel.Logger.IsEnabled}">
                     <ui:SettingsCard.HeaderIcon>
-                        <ui:FontIcon Glyph="&#xE8B7;" />
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.FolderArrowRight_16_Regular}" />
                     </ui:SettingsCard.HeaderIcon>
                     <controls:FolderPicker
                         MinWidth="320"

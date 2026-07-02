@@ -1,22 +1,21 @@
-﻿using System;
-using System.ComponentModel;
+﻿using Prism.Commands;
 using ShiJing.Model.Settings;
 using ShiJing.Utils.Log;
+using ShiJing.Utils.Settings;
 
 namespace ShiJing.ViewModels.Settings
 {
-    public class SettingsViewModel
+    public class SettingsViewModel : BindableBase
     {
         public SettingsViewModel()
         {
             settingsModel = new SettingsModel();
 
             // 从全局 LoggerService 当前生效配置载入，使界面反映真实状态
+            // （启动时已由 App.OnStartup 从 settings.json 加载到 LoggerService）
             settingsModel.Logger.LoadFromService();
 
-            // 日志等级变更 → 立即应用到全局 LoggerService（重建输出目标）
-            // 在 LoadFromService 之后订阅，避免初始化时触发一次无意义的 Apply
-            settingsModel.Logger.PropertyChanged += Logger_PropertyChanged;
+            SaveCommand = new DelegateCommand(Save);
         }
 
         public SettingsModel settingsModel { get; set; }
@@ -24,14 +23,17 @@ namespace ShiJing.ViewModels.Settings
         /// <summary>所有可选日志等级，供 ComboBox 绑定。</summary>
         public LogLevel[] LogLevelValues { get; } = (LogLevel[])Enum.GetValues(typeof(LogLevel));
 
-        private void Logger_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        /// <summary>保存按钮命令：写入 settings.json 并应用到全局 LoggerService。</summary>
+        public DelegateCommand SaveCommand { get; }
+
+        private void Save()
         {
-            // 日志等级或保存目录变更 → 立即应用到全局 LoggerService（重建输出目标）
-            if (e.PropertyName == nameof(LoggerSettingModel.MinLevel) ||
-                e.PropertyName == nameof(LoggerSettingModel.LogDirectory))
-            {
-                settingsModel.Logger.Apply();
-            }
+            // 1. 持久化到 settings/settings.json
+            var config = settingsModel.Logger.ToConfig();
+            SettingsManager.Save(config);
+
+            // 2. 应用到全局 LoggerService（重建输出目标）
+            settingsModel.Logger.Apply();
         }
     }
 }
