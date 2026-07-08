@@ -69,6 +69,25 @@
                         IsPathEnabled="{Binding settingsModel.Logger.IsEnabled}"
                         SelectedPath="{Binding settingsModel.Logger.LogDirectory, Mode=TwoWay}" />
                 </ui:SettingsCard>
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="0,16,10,5"
+                    VerticalAlignment="Center"
+                    Text="截图设置" />
+                <ui:SettingsCard
+                    x:Name="SnapShotDirectoryCard"
+                    Description="截图文件的保存位置"
+                    Header="截图保存目录"
+                    IsEnabled="{Binding settingsModel.SnapShot.IsEnabled}">
+                    <ui:SettingsCard.HeaderIcon>
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.FolderArrowRight_16_Regular}" />
+                    </ui:SettingsCard.HeaderIcon>
+                    <controls:FolderPicker
+                        MinWidth="320"
+                        DialogTitle="选择截图保存目录"
+                        SelectedPath="{Binding settingsModel.SnapShot.SnapShotDirectory, Mode=TwoWay}" />
+                </ui:SettingsCard>
+
             </ikw:SimpleStackPanel>
 
 

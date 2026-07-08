@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Text.Json;
-using ShiJing.Utils.Log;
+using ShiJing.Model.Settings;
 
 namespace ShiJing.Utils.Settings
 {
@@ -23,25 +23,26 @@ namespace ShiJing.Utils.Settings
         private static readonly JsonSerializerOptions _jsonOptions = new()
         {
             WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         };
 
         /// <summary>
         /// 加载配置：文件存在则反序列化；不存在则写入默认配置并返回。
-        /// 任何异常都不向上抛出，失败时返回默认 <see cref="LoggerConfig"/>。
+        /// 任何异常都不向上抛出，失败时返回默认 <see cref="SettingsModel"/>。
         /// </summary>
-        public static LoggerConfig LoadOrCreate()
+        public static SettingsModel LoadOrCreate()
         {
             try
             {
                 if (File.Exists(SettingsFilePath))
                 {
                     var json = File.ReadAllText(SettingsFilePath);
-                    var config = JsonSerializer.Deserialize<LoggerConfig>(json, _jsonOptions);
-                    return config ?? new LoggerConfig();
+                    var config = JsonSerializer.Deserialize<SettingsModel>(json, _jsonOptions);
+                    return config ?? new SettingsModel();
                 }
 
                 // 文件不存在：生成默认配置文件
-                var defaultConfig = new LoggerConfig();
+                var defaultConfig = new SettingsModel();
                 Save(defaultConfig);
                 return defaultConfig;
             }
@@ -50,14 +51,14 @@ namespace ShiJing.Utils.Settings
                 // 配置加载/解析失败不应阻断启动，回退到默认配置。
                 try { Console.Error.WriteLine($"[SettingsManager] load failed: {ex.Message}"); }
                 catch { /* 忽略 */ }
-                return new LoggerConfig();
+                return new SettingsModel();
             }
         }
 
         /// <summary>
         /// 将指定配置序列化写入 <c>settings.json</c>。目录不存在时自动创建。
         /// </summary>
-        public static void Save(LoggerConfig config)
+        public static void Save(SettingsModel config)
         {
             if (config is null) throw new ArgumentNullException(nameof(config));
 

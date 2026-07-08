@@ -29,8 +29,7 @@ namespace ShiJing.ViewModels.Settings
         private void Save()
         {
             // 1. 持久化到 settings/settings.json
-            var config = settingsModel.Logger.ToConfig();
-            SettingsManager.Save(config);
+            SettingsManager.Save(settingsModel);
 
             // 2. 应用到全局 LoggerService（重建输出目标）
             settingsModel.Logger.Apply();

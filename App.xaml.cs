@@ -13,8 +13,8 @@ namespace ShiJing
         {
             // 启动时加载持久化配置（文件不存在则生成默认 settings.json），
             // 并应用到全局 LoggerService，覆盖单例的默认配置。
-            var config = SettingsManager.LoadOrCreate();
-            LoggerService.Instance.ReloadConfig(config);
+            var settings = SettingsManager.LoadOrCreate();
+            LoggerService.Instance.ReloadConfig(settings.Logger.ToConfig());
 
             base.OnStartup(e);
         }

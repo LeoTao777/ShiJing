@@ -14,7 +14,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <!-- 路径显示文本，只读，超长时省略号；圆角 -->
+        <!--  路径显示文本，只读，超长时省略号；圆角  -->
         <Border
             Grid.Column="0"
             Margin="0,0,8,0"
@@ -33,7 +33,7 @@
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
-                            <!-- 外部置为 false 时文字置灰 -->
+                            <!--  外部置为 false 时文字置灰  -->
                             <DataTrigger Binding="{Binding IsPathEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="False">
                                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                             </DataTrigger>
@@ -43,7 +43,7 @@
             </TextBlock>
         </Border>
 
-        <!-- 浏览按钮：打开文件资源管理器选择目标文件夹 -->
+        <!--  浏览按钮：打开文件资源管理器选择目标文件夹  -->
         <Button
             Grid.Column="1"
             Click="BrowseButton_Click"
