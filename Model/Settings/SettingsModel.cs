@@ -14,5 +14,10 @@ namespace ShiJing.Model.Settings
         /// <summary>截图相关设置。</summary>
         [JsonPropertyName("snapshot")]
         public SnapShotSettingModel SnapShot { get; set; } = new SnapShotSettingModel();
+
+        /// <summary>视频相关设置。</summary>
+        [JsonPropertyName("Video")]
+        public VideoSettingModel Video { get; set; } = new VideoSettingModel();
+
     }
 }

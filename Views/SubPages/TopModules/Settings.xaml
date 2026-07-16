@@ -88,6 +88,25 @@
                         SelectedPath="{Binding settingsModel.SnapShot.SnapShotDirectory, Mode=TwoWay}" />
                 </ui:SettingsCard>
 
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="0,16,10,5"
+                    VerticalAlignment="Center"
+                    Text="视频设置" />
+                <ui:SettingsCard
+                    x:Name="VideoDirectoryCard"
+                    Description="默认打开的视频目录"
+                    Header="默认视频目录"
+                    IsEnabled="{Binding settingsModel.Video.IsEnabled}">
+                    <ui:SettingsCard.HeaderIcon>
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.FolderArrowRight_16_Regular}" />
+                    </ui:SettingsCard.HeaderIcon>
+                    <controls:FolderPicker
+                        MinWidth="320"
+                        DialogTitle="选择默认视频目录"
+                        SelectedPath="{Binding settingsModel.Video.DefaultVideoDirectory, Mode=TwoWay}" />
+                </ui:SettingsCard>
+
             </ikw:SimpleStackPanel>
 
 
