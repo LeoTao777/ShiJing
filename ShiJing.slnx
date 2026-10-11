@@ -1,4 +1,3 @@
 <Solution>
   <Project Path="ShiJing.csproj" />
-  <Project Path="UnitTest\LoggerUnitTest\ShiJing.LoggerUnitTest.csproj" />
 </Solution>

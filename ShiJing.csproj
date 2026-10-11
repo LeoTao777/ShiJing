@@ -14,17 +14,6 @@
   <ItemGroup>
     <Using Remove="System.Windows.Forms" />
   </ItemGroup>
-
-  <!-- 单元测试项目位于 UnitTest/ 子目录下，需从主项目的默认编译项中排除，
-       否则默认的 **\*.cs glob 会把测试源码一并纳入主项目编译。 -->
-  <ItemGroup>
-    <Compile Remove="UnitTest\**" />
-    <None Remove="UnitTest\**" />
-    <EmbeddedResource Remove="UnitTest\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="nul" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.2.1" />
@@ -32,8 +21,5 @@
     <PackageReference Include="Serilog" Version="4.4.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 </Project>
