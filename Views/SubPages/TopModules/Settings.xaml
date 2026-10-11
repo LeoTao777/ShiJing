@@ -22,7 +22,7 @@
             IsTabStop="False"
             VerticalScrollBarVisibility="Auto">
             <ikw:SimpleStackPanel Spacing="4">
-                <Grid Margin="0,16,10,5">
+                <!--<Grid Margin="0,16,10,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -68,7 +68,7 @@
                         DialogTitle="选择日志保存目录"
                         IsPathEnabled="{Binding settingsModel.Logger.IsEnabled}"
                         SelectedPath="{Binding settingsModel.Logger.LogDirectory, Mode=TwoWay}" />
-                </ui:SettingsCard>
+                </ui:SettingsCard>-->
                 <TextBlock
                     Grid.Column="0"
                     Margin="0,16,10,5"

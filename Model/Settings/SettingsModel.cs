@@ -8,8 +8,8 @@ namespace ShiJing.Model.Settings
     public class SettingsModel
     {
         /// <summary>日志相关设置。</summary>
-        [JsonPropertyName("logger")]
-        public LoggerSettingModel Logger { get; set; } = new LoggerSettingModel();
+        //[JsonPropertyName("logger")]
+        //public LoggerSettingModel Logger { get; set; } = new LoggerSettingModel();
 
         /// <summary>截图相关设置。</summary>
         [JsonPropertyName("snapshot")]
