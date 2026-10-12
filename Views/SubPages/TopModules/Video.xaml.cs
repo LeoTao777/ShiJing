@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using ShiJing.ViewModels.Videos;
+using System.Windows.Controls;
 
 namespace ShiJing.Views.SubPages.TopModules
 {
@@ -10,6 +11,7 @@ namespace ShiJing.Views.SubPages.TopModules
         public Video()
         {
             InitializeComponent();
+            DataContext = new VideoViewModel();
         }
     }
 }
