@@ -17,21 +17,27 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ui:AutoSuggestBox
-            Grid.Row="0"
-            Width="300"
-            Margin="50,10,59,0"
-            HorizontalAlignment="Left"
-            PlaceholderText="搜索视频文件名称、标签...">
-            <behaviors:Interaction.Triggers>
-                <behaviors:EventTrigger EventName="QuerySubmitted">
-                    <behaviors:InvokeCommandAction Command="{Binding SearchCommand}" EventArgsParameterPath="QueryText" />
-                </behaviors:EventTrigger>
-            </behaviors:Interaction.Triggers>
-            <ui:AutoSuggestBox.QueryIcon>
-                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Search}" />
-            </ui:AutoSuggestBox.QueryIcon>
-        </ui:AutoSuggestBox>
 
+        <StackPanel
+            Grid.Row="0"
+            Margin="59,10,50,0"
+            Orientation="Horizontal">
+            <ui:AutoSuggestBox
+                Grid.Row="0"
+                Width="300"
+                HorizontalAlignment="Left"
+                PlaceholderText="搜索视频文件名称、标签...">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="QuerySubmitted">
+                        <behaviors:InvokeCommandAction Command="{Binding SearchCommand}" EventArgsParameterPath="QueryText" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+                <ui:AutoSuggestBox.QueryIcon>
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Search}" />
+                </ui:AutoSuggestBox.QueryIcon>
+            </ui:AutoSuggestBox>
+
+            <Button Margin="12,0,0,0" Command="{Binding OpenFolderCommand}" Content="打开文件夹" />
+        </StackPanel>
     </Grid>
 </UserControl>
