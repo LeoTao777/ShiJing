@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
 using ShiJing.Utils.Logger;
+using ShiJing.Views.Controls;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace ShiJing.ViewModels.Videos
@@ -19,6 +21,18 @@ namespace ShiJing.ViewModels.Videos
             set => SetProperty(ref totalCount, value);
         }
 
+        public ObservableCollection<RadioOption> SortOptions { get; } = new()
+    {
+        new() { Text = "全部", Value = "all", IsSelected = true },
+        new() { Text = "最近", Value = "recent" },
+        new() { Text = "按日期", Value = "date" },
+        new() { Text = "按大小", Value = "size" },
+        new() { Text = "按时长", Value = "duration" }
+    };
+
+        public string SelectedValue =>
+            SortOptions.FirstOrDefault(x => x.IsSelected)?.Value ?? "all";
+
         public DelegateCommand<string> SearchCommand { get; }
         public DelegateCommand OpenFolderCommand { get;}
 
@@ -36,6 +50,8 @@ namespace ShiJing.ViewModels.Videos
             if (dialog.ShowDialog() != true) return;
             MessageBox.Show($"Opening folder: {dialog.FolderName}");
             AppLogger.Info($"Opening folder: {dialog.FolderName}");
+
+            //todo:显示文件列表视图（列表或者卡片）
         }
     }
 }
