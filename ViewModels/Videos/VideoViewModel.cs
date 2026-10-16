@@ -12,8 +12,24 @@ namespace ShiJing.ViewModels.Videos
         {
             SearchCommand = new DelegateCommand<string>(OnSearch);
             OpenFolderCommand = new DelegateCommand(OnOpenFolder);
+            // 监听 SortOptions 变化
+            SortOptions.CollectionChanged += (_, _) => UpdateSelectedValue();
+            foreach (var option in SortOptions)
+            {
+                option.PropertyChanged += (s, e) =>
+                {
+                    if (e.PropertyName == nameof(RadioOption.IsSelected) && s is RadioOption radio && radio.IsSelected)
+                    {
+                        UpdateSelectedValue();
+                    }
+                };
+            }
         }
-
+        private void UpdateSelectedValue()
+        {
+            SelectedValue = SortOptions.FirstOrDefault(x => x.IsSelected)?.Value ?? "all";
+            AppLogger.Info($"SelectedValue updated to {SelectedValue}");
+        }
         private int totalCount;
         public int TotalCount
         {
@@ -30,11 +46,15 @@ namespace ShiJing.ViewModels.Videos
         new() { Text = "按时长", Value = "duration" }
     };
 
-        public string SelectedValue =>
-            SortOptions.FirstOrDefault(x => x.IsSelected)?.Value ?? "all";
+        private string selectedValue = "all";
+        public string SelectedValue
+        {
+            get => selectedValue;
+            set => SetProperty(ref selectedValue, value);
+        }
 
         public DelegateCommand<string> SearchCommand { get; }
-        public DelegateCommand OpenFolderCommand { get;}
+        public DelegateCommand OpenFolderCommand { get; }
 
         private void OnSearch(string query)
         {

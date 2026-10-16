@@ -2,6 +2,7 @@
     x:Class="ShiJing.Views.Controls.TabRadioUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Name="Root"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ShiJing.Views.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -59,7 +60,7 @@
             <DataTemplate>
                 <RadioButton
                     Content="{Binding Text}"
-                    GroupName="{Binding GroupName, ElementName=Root}"
+                    GroupName="{Binding GroupName, RelativeSource={RelativeSource AncestorType=UserControl}}"
                     IsChecked="{Binding IsSelected, Mode=TwoWay}"
                     Style="{StaticResource PillRadioButton}"
                     Tag="{Binding Value}" />

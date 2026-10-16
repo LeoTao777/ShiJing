@@ -25,6 +25,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="docs\UI-Design\" />
-    <Folder Include="Model\Video\" />
   </ItemGroup>
 </Project>
