@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using ShiJing.Utils.Logger;
-using ShiJing.Views.Controls;
-using System.Collections.ObjectModel;
+using ShiJing.Views.Controls.SegmentedControl;
 using System.Windows;
 
 namespace ShiJing.ViewModels.Videos
@@ -13,23 +12,31 @@ namespace ShiJing.ViewModels.Videos
             SearchCommand = new DelegateCommand<string>(OnSearch);
             OpenFolderCommand = new DelegateCommand(OnOpenFolder);
             // 监听 SortOptions 变化
-            SortOptions.CollectionChanged += (_, _) => UpdateSelectedValue();
-            foreach (var option in SortOptions)
-            {
-                option.PropertyChanged += (s, e) =>
-                {
-                    if (e.PropertyName == nameof(RadioOption.IsSelected) && s is RadioOption radio && radio.IsSelected)
-                    {
-                        UpdateSelectedValue();
-                    }
-                };
-            }
         }
-        private void UpdateSelectedValue()
+
+        private string _selectedFilter = "全部";
+
+        /// <summary>
+        /// 当前选中的筛选/排序项标题（与 SegmentedControl.SelectedValue 双向绑定）。
+        /// </summary>
+        public string SelectedFilter
         {
-            SelectedValue = SortOptions.FirstOrDefault(x => x.IsSelected)?.Value ?? "all";
-            AppLogger.Info($"SelectedValue updated to {SelectedValue}");
+            get => _selectedFilter;
+            set => SetProperty(ref _selectedFilter, value);
         }
+
+        private SegmentedSortDirection _sortDirection = SegmentedSortDirection.None;
+
+        /// <summary>
+        /// 当前排序方向（与 SegmentedControl.SortDirection 双向绑定）。
+        /// 选中排序项（按日期/按大小/按时长）时为正向或逆向，选中其他项时为 None。
+        /// </summary>
+        public SegmentedSortDirection SortDirection
+        {
+            get => _sortDirection;
+            set => SetProperty(ref _sortDirection, value);
+        }
+
         private int totalCount;
         public int TotalCount
         {
@@ -37,14 +44,6 @@ namespace ShiJing.ViewModels.Videos
             set => SetProperty(ref totalCount, value);
         }
 
-        public ObservableCollection<RadioOption> SortOptions { get; } = new()
-    {
-        new() { Text = "全部", Value = "all", IsSelected = true },
-        new() { Text = "最近", Value = "recent" },
-        new() { Text = "按日期", Value = "date" },
-        new() { Text = "按大小", Value = "size" },
-        new() { Text = "按时长", Value = "duration" }
-    };
 
         private string selectedValue = "all";
         public string SelectedValue

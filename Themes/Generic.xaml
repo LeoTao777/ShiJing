@@ -1,0 +1,113 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:ShiJing.Views.Controls.SegmentedControl">
+
+    <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+
+    <!--
+        SegmentedItem 内容模板：标题 + 方向箭头（可排序项显示）。
+        基础字形为向上箭头；默认旋转 180° 显示为向下（未选中/逆向），
+        正向（Ascending）时触发器转回 0°。箭头颜色跟随项的前景色（选中时变白）
+    -->
+    <DataTemplate DataType="{x:Type controls:SegmentedItem}">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="{Binding Title}" />
+            <Path
+                x:Name="Arrow"
+                Margin="5,1,0,0"
+                VerticalAlignment="Center"
+                Data="M 0,3.5 L 3.5,0 L 7,3.5"
+                RenderTransformOrigin="0.5,0.5"
+                Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                StrokeEndLineCap="Round"
+                StrokeStartLineCap="Round"
+                StrokeThickness="1.5"
+                Visibility="{Binding IsSortable, Converter={StaticResource BoolToVisibility}}">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="180" />
+                </Path.RenderTransform>
+            </Path>
+        </StackPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding SortDirection}" Value="{x:Static controls:SegmentedSortDirection.Ascending}">
+                <Setter TargetName="Arrow" Property="RenderTransform">
+                    <Setter.Value>
+                        <RotateTransform Angle="0" />
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <!--  单个选项（药丸）的容器样式：胶囊圆角，未选中=浅色底，悬停=稍深，选中=强调色底白字  -->
+    <Style x:Key="SegmentedControlItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Margin" Value="4,0" />
+        <Setter Property="Padding" Value="16,6" />
+        <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border
+                        x:Name="Pill"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="0"
+                        CornerRadius="{Binding PillCornerRadius, RelativeSource={RelativeSource AncestorType={x:Type controls:SegmentedControl}}}"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  控件默认样式：透明底，选项用 StackPanel 按 Orientation 排列  -->
+    <Style TargetType="{x:Type controls:SegmentedControl}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SegmentedControlItemStyle}" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel IsItemsHost="True" Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType={x:Type controls:SegmentedControl}}}" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:SegmentedControl}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer Focusable="False">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

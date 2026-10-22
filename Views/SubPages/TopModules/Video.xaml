@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ShiJing.Views.SubPages.TopModules"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:segControl="clr-namespace:ShiJing.Views.Controls.SegmentedControl"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:vm="clr-namespace:ShiJing.ViewModels.Videos"
     d:DataContext="{d:DesignInstance Type=vm:VideoViewModel}"
@@ -49,9 +50,18 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <controls:TabRadioUserControl GroupName="VideoSortGroup" Options="{Binding SortOptions}" />
-
-
+            <segControl:SegmentedControl
+                Grid.Row="0"
+                SelectedIndex="0"
+                SelectedValue="{Binding SelectedFilter, Mode=TwoWay}"
+                SelectedValuePath="Title"
+                SortDirection="{Binding SortDirection, Mode=TwoWay}">
+                <segControl:SegmentedItem Title="全部" />
+                <segControl:SegmentedItem Title="最近" />
+                <segControl:SegmentedItem Title="按日期" IsSortable="True" />
+                <segControl:SegmentedItem Title="按大小" IsSortable="True" />
+                <segControl:SegmentedItem Title="按时长" IsSortable="True" />
+            </segControl:SegmentedControl>
         </Grid>
     </Grid>
 </UserControl>
