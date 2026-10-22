@@ -10,12 +10,56 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="24"
-            Opacity="0.5">
-            Current Page: Home
-        </TextBlock>
+
+        <ui:SettingsExpander
+            Margin="59,10,59,0"
+            VerticalAlignment="Top"
+            Description="LeoTao777 All right reserved!"
+            Header="ShiJing"
+            IsEnabled="True">
+            <ui:SettingsExpander.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Video360_24_Filled}" />
+            </ui:SettingsExpander.HeaderIcon>
+
+            <Label HorizontalAlignment="Right" Content="1.0.0" />
+
+            <ui:SettingsExpander.Items>
+                <ui:SettingsCard Header="To Clone this Project">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Label
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Content="git clone https://github.com/LeoTao777/ShiJing.git" />
+                        <Button Margin="20,0,0,0">
+                            <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Copy}" />
+                        </Button>
+                    </StackPanel>
+                </ui:SettingsCard>
+
+                <ui:SettingsCard
+                    Description="Shijing is a minimalist lightweight local video management desktop application. It supports one-click video frame snapshot and local screenshot saving. All captured screenshots are automatically associated with their source videos."
+                    FontSize="18"
+                    IsClickEnabled="False" />
+                <ui:SettingsCard>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ui:HyperlinkButton
+                            Grid.Column="0"
+                            Content="LeoTao777's home page"
+                            IsEnabled="True"
+                            NavigateUri="https://github.com/LeoTao777" />
+                        <ui:HyperlinkButton
+                            Grid.Column="1"
+                            Content="Repository"
+                            IsEnabled="True"
+                            NavigateUri="https://github.com/LeoTao777/ShiJing" />
+                    </Grid>
+                </ui:SettingsCard>
+            </ui:SettingsExpander.Items>
+        </ui:SettingsExpander>
     </Grid>
 </UserControl>
